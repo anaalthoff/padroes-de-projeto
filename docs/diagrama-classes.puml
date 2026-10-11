@@ -1,0 +1,90 @@
+@startuml diagrama-classes
+' AD1 - Padrões de Projeto - Padrão Observer
+' Sistema de Rastreio de Pedidos
+!pragma layout smetana
+
+title Rastreio de Pedidos — Padrão Observer
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam noteBackgroundColor #FFFDE7
+skinparam noteBorderColor #BDB76B
+
+' Cores por papel no padrão
+skinparam class {
+  BorderColor #444444
+  ArrowColor #444444
+  BackgroundColor<<Subject>> #FFE0B2
+  BackgroundColor<<ConcreteSubject>> #FFCC80
+  BackgroundColor<<Observer>> #BBDEFB
+  BackgroundColor<<ConcreteObserver>> #90CAF9
+}
+
+legend top right
+  |= Cor |= Papel no padrão Observer |
+  |<#FFE0B2>| Subject (interface) |
+  |<#FFCC80>| ConcreteSubject |
+  |<#BBDEFB>| Observer (interface) |
+  |<#90CAF9>| ConcreteObserver |
+endlegend
+
+interface Subject <<Subject>> {
+  + adicionarObserver(o: Observer): void
+  + removerObserver(o: Observer): void
+  + notificarObservers(): void
+}
+
+interface Observer <<Observer>> {
+  + atualizar(pedido: Pedido): void
+}
+
+class Pedido <<ConcreteSubject>> {
+  - id: number
+  - status: StatusPedido
+  - observers: Observer[]
+  + getId(): number
+  + getStatus(): StatusPedido
+  + avancarStatus(): void
+  + adicionarObserver(o: Observer): void
+  + removerObserver(o: Observer): void
+  + notificarObservers(): void
+}
+
+enum StatusPedido {
+  RECEBIDO
+  PAGO
+  ENVIADO
+  ENTREGUE
+}
+
+class EmailObserver <<ConcreteObserver>> {
+  - email: string
+  - painel: HTMLElement
+  + atualizar(pedido: Pedido): void
+}
+
+class DashboardObserver <<ConcreteObserver>> {
+  - painel: HTMLElement
+  + atualizar(pedido: Pedido): void
+}
+
+' --- Estrutura do padrão ---
+Subject <|.. Pedido
+Observer <|.. EmailObserver
+Observer <|.. DashboardObserver
+
+Pedido "1" o--> "0..*" Observer : notifica >
+Pedido --> StatusPedido
+
+note right of Pedido
+  <b>avancarStatus()</b>
+    status = próximo status
+    notificarObservers()
+
+  <b>notificarObservers()</b>
+    for (o of observers)
+      o.atualizar(this)
+end note
+
+@enduml
