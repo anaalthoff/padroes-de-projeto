@@ -14,7 +14,7 @@ class EmailObserver extends Observer {
   atualizar(pedido) {
     const item = document.createElement("li");
     item.textContent =
-      `Para: ${this.#email} - Seu pedido #${pedido.getId()}` +
+      `Para: ${this.#email} - Seu pedido #${pedido.getId()} ` +
       `mudou para ${pedido.getStatus()}.`;
     this.#painel.appendChild(item);
   }
