@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rastreio de Pedidos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Rastreio de Pedidos — Padrão Observer</h1>
+
+  <section>
+    <h2>Pedido #1</h2>
+    <p>Status atual: <strong id="status"></strong></p>
+    <button id="avancar">Avançar status</button>
+
+    <p>
+      <label><input type="checkbox" id="inscrever-email" checked> E-mail inscrito</label>
+      <label><input type="checkbox" id="inscrever-dashboard" checked> Dashboard inscrito</label>
+    </p>
+  </section>
+
+  <section>
+    <h2>E-mails enviados (EmailObserver)</h2>
+    <ul id="emails"></ul>
+  </section>
+
+  <section>
+    <h2>Dashboard da loja (DashboardObserver)</h2>
+    <p id="dashboard"></p>
+  </section>
+
+  <!-- A ordem importa: as interfaces vêm antes das classes que herdam delas -->
+  <script src="js/Subject.js"></script>
+  <script src="js/Observer.js"></script>
+  <script src="js/StatusPedido.js"></script>
+  <script src="js/Pedido.js"></script>
+  <script src="js/EmailObserver.js"></script>
+  <script src="js/DashboardObserver.js"></script>
+</body>
+</html>
