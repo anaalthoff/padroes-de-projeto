@@ -1,4 +1,4 @@
-# Rastreio de Pedidos — Padrão Observer
+# Rastreio de Pedidos - Padrão Observer
 
 Trabalho da **AD1** da disciplina de **Padrões de Projeto** (UDESC/CEAD — Tecnologia em Análise e Desenvolvimento de Sistemas).
 
